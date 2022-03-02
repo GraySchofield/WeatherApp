@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# This is a simple Single page webapp for weather forecast
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simply type in the city you want to search for, the detailed weather information together with hourly and daily forcecast \
+will be displayed. This app uses the Open Weather api to fetch the weather information.
+
+![Weather app](./src/img/weather.PNG)
 
 ## Available Scripts
 
