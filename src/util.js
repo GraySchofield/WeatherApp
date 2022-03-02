@@ -12,7 +12,23 @@ export function convertTimeStamp(timeStamp) {
     " " +
     date.getHours() +
     ":" +
-    date.getMinutes();
+    date.getMinutes().toLocaleString("en-us", {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    });
 
   return dateString;
+}
+
+export function converTimeToHour(timeStamp) {
+  let date = fromUnixTime(timeStamp);
+
+  return (
+    date.getHours() +
+    ":" +
+    date.getMinutes().toLocaleString("en-us", {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    })
+  );
 }

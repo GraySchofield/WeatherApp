@@ -12,16 +12,19 @@ const SeartBar = (props) => {
   };
 
   return (
-    <div>
+    <div className="horizontal-group margin-around">
       <input
         type="text"
         placeholder="Search city"
+        className="input"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
         }}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className="btn btn-secondary" onClick={handleSearch}>
+        Search
+      </button>
     </div>
   );
 };

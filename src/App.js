@@ -1,20 +1,23 @@
-import logo from "./logo.svg";
+import React from "react";
 import store from "./store/store";
 import SeartBar from "./components/searchBar";
 import { Provider } from "react-redux";
 
 import "./App.css";
-import Summary from "./components/summray";
-import Forecast from "./components/forecast";
-import HourlyGraph from "./components/hourlyGraph";
+import Content from "./components/content";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fas);
 
 function App() {
   return (
     <Provider store={store}>
       <SeartBar></SeartBar>
-      <Summary />
-      <HourlyGraph />
-      <Forecast />
+      <div className="block-content">
+        <Content />
+      </div>
     </Provider>
   );
 }

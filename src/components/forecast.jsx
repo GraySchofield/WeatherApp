@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { selectWeather } from "../store/weather";
 import { convertTimeStamp } from "../util";
 import ForecastDetail from "./forecastDetail";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import WeatherIcon from "./weatherIcon";
 
 const Forecast = (props) => {
   const weather = useSelector(selectWeather);
@@ -22,38 +24,44 @@ const Forecast = (props) => {
           }}
         />
       );
-    } else if (weather) {
+    } else {
       return (
-        <ul>
+        <ul className="forecast__list">
           {weather.daily.map((dailyWeather) => {
             return (
-              <li key={dailyWeather.dt}>
+              <li
+                className="forecast__row horizontal-group"
+                key={dailyWeather.dt}
+              >
                 <span>{convertTimeStamp(dailyWeather.dt)}</span>
                 <span>
-                  <img src="" alt="" />
-                  {dailyWeather.temp.max} / {dailyWeather.temp.min}°C
+                  <WeatherIcon
+                    weather={dailyWeather.weather[0].main}
+                  ></WeatherIcon>
+                  {Math.floor(dailyWeather.temp.max)} /{" "}
+                  {Math.floor(dailyWeather.temp.min)}°C
                 </span>
-                <span>{dailyWeather.weather[0].description}</span>
+                <span className="forecast__desc">
+                  {dailyWeather.weather[0].description}
+                </span>
                 <span
                   onClick={() => {
                     handleExpand(dailyWeather);
                   }}
                 >
-                  expand
+                  <FontAwesomeIcon icon="fa-solid fa-chevron-down" />
                 </span>
               </li>
             );
           })}
         </ul>
       );
-    } else {
-      return <div></div>;
     }
   };
 
   return (
-    <div>
-      <h1>8-day forecast</h1>
+    <div className="forecast">
+      <h1 className="forecast__title">8-day forecast</h1>
       {renderList()}
     </div>
   );

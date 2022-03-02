@@ -7,6 +7,7 @@ const weatherSlice = createSlice({
   initialState: {
     data: {},
     loading: false,
+    error: null,
   },
 
   reducers: {
@@ -16,6 +17,10 @@ const weatherSlice = createSlice({
 
     weatherRequestFailed: (state, action) => {
       state.loading = false;
+      console.error("request failed with error : ", action.payload);
+
+      const message = action.payload;
+      state.error = message;
     },
 
     locationReceived: (state, action) => {
@@ -30,12 +35,19 @@ const weatherSlice = createSlice({
         };
 
         state.data.location = location;
+        state.error = null;
+      } else {
+        state.data = {};
+        state.error = "no data available";
       }
+      state.loading = false;
     },
 
     detailWeatherReceived: (state, action) => {
       console.log("detailed weather data : ", action.payload);
       state.data.weather = { ...action.payload };
+      state.loading = false;
+      state.error = null;
     },
   },
 });
@@ -88,4 +100,14 @@ export const selectLocations = createSelector(
 export const selectWeather = createSelector(
   (state) => state.weather,
   (weather) => weather.data.weather
+);
+
+export const selectLoading = createSelector(
+  (state) => state.weather,
+  (weather) => weather.loading
+);
+
+export const selectError = createSelector(
+  (state) => state.weather,
+  (weather) => weather.error
 );
